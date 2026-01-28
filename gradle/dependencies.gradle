@@ -185,6 +185,7 @@ versions += [
   confluentSchema: "7.8.0",
   iceberg: "1.6.1",
   parquet: "1.15.2",
+  aircompressor: "0.27",
   wire: "4.9.1",
   oshi: "6.8.1",
   // AutoMQ inject end
@@ -323,6 +324,7 @@ libs += [
   hdrHistogram: "org.hdrhistogram:HdrHistogram:$versions.hdrHistogram",
   kafkaAvroSerializer: "io.confluent:kafka-avro-serializer:$versions.confluentSchema",
   parquetAvro: "org.apache.parquet:parquet-avro:$versions.parquet",
+  aircompressor: "io.airlift:aircompressor:$versions.aircompressor",
   spotbugsAnnotations: "com.github.spotbugs:spotbugs-annotations:$versions.spotbugs",
   oshi: "com.github.oshi:oshi-core:$versions.oshi",
 ]

@@ -1004,6 +1004,7 @@ project(':core') {
     implementation ("org.apache.iceberg:iceberg-data:${versions.iceberg}")
     implementation ("org.apache.iceberg:iceberg-parquet:${versions.iceberg}")
     implementation libs.parquetAvro
+    implementation libs.aircompressor
     implementation ("org.apache.iceberg:iceberg-common:${versions.iceberg}")
     implementation ("org.apache.iceberg:iceberg-aws:${versions.iceberg}")
     implementation ("org.apache.iceberg:iceberg-nessie:${versions.iceberg}")
