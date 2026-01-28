@@ -14,13 +14,13 @@ ARG JAVA_EXTRA_SECURITY_DIR="/bitnami/java/extra-security"
 ARG TARGETARCH
 
 LABEL org.opencontainers.image.base.name="docker.io/bitnami/minideb:bookworm" \
-      org.opencontainers.image.created="2025-04-27T21:51:40Z" \
-      org.opencontainers.image.description="AutoMQ packaged by AutoMQ, Inc." \
-      org.opencontainers.image.ref.name="3.9.0-debian-12-r13" \
-      org.opencontainers.image.source="https://github.com/AutoMQ/automq/tree/main/container" \
-      org.opencontainers.image.title="automq" \
-      org.opencontainers.image.vendor="AutoMQ, Inc." \
-      org.opencontainers.image.version="3.9.0"
+    org.opencontainers.image.created="2025-04-27T21:51:40Z" \
+    org.opencontainers.image.description="AutoMQ packaged by AutoMQ, Inc." \
+    org.opencontainers.image.ref.name="3.9.1-debian-12-r13" \
+    org.opencontainers.image.source="https://github.com/AutoMQ/automq/tree/main/container" \
+    org.opencontainers.image.title="automq" \
+    org.opencontainers.image.vendor="AutoMQ, Inc." \
+    org.opencontainers.image.version="3.9.1"
 
 ENV HOME="/" \
     OS_ARCH="${TARGETARCH:-amd64}" \
@@ -34,19 +34,20 @@ RUN apt-get update && apt-get install -y ca-certificates curl procps zlib1g libj
     apt-get clean && rm -rf /var/lib/apt/lists /var/cache/apt/archives
 RUN mkdir -p /tmp/bitnami/pkg/cache/ ; cd /tmp/bitnami/pkg/cache/ || exit 1 ; \
     COMPONENTS=( \
-      "jre-17.0.14-10-1-linux-${OS_ARCH}-debian-12" \
+    "jre-17.0.14-10-1-linux-${OS_ARCH}-debian-12" \
     ) ; \
     for COMPONENT in "${COMPONENTS[@]}"; do \
-      if [ ! -f "${COMPONENT}.tar.gz" ]; then \
-        curl -SsLf "https://${DOWNLOADS_URL}/${COMPONENT}.tar.gz" -O ; \
-        curl -SsLf "https://${DOWNLOADS_URL}/${COMPONENT}.tar.gz.sha256" -O ; \
-      fi ; \
-      sha256sum -c "${COMPONENT}.tar.gz.sha256" ; \
-      tar -zxf "${COMPONENT}.tar.gz" -C /opt/bitnami --strip-components=2 --no-same-owner ; \
-      rm -rf "${COMPONENT}".tar.gz{,.sha256} ; \
+    if [ ! -f "${COMPONENT}.tar.gz" ]; then \
+    curl -SsLf "https://${DOWNLOADS_URL}/${COMPONENT}.tar.gz" -O ; \
+    curl -SsLf "https://${DOWNLOADS_URL}/${COMPONENT}.tar.gz.sha256" -O ; \
+    fi ; \
+    sha256sum -c "${COMPONENT}.tar.gz.sha256" ; \
+    tar -zxf "${COMPONENT}.tar.gz" -C /opt/bitnami --strip-components=2 --no-same-owner ; \
+    rm -rf "${COMPONENT}".tar.gz{,.sha256} ; \
     done
 COPY --from=extractor --chown=1001:0 /output /opt/bitnami/kafka
 RUN chmod g+rwX /opt/bitnami
+RUN ls -al /opt/bitnami/kafka/libs
 RUN find / -perm /6000 -type f -exec chmod a-s {} \; || true
 RUN ln -s /opt/bitnami/scripts/kafka/entrypoint.sh /entrypoint.sh
 RUN ln -s /opt/bitnami/scripts/kafka/run.sh /run.sh
@@ -56,7 +57,7 @@ RUN find /opt/bitnami/scripts -type f -exec chmod g+rwX {} \; && \
     find /opt/bitnami/scripts -type f -exec chmod +x {} \;
 RUN /opt/bitnami/scripts/java/postunpack.sh
 RUN /opt/bitnami/scripts/kafka/postunpack.sh
-ENV APP_VERSION="3.9.0" \
+ENV APP_VERSION="3.9.1" \
     BITNAMI_APP_NAME="kafka" \
     JAVA_HOME="/opt/bitnami/java" \
     PATH="/opt/bitnami/common/bin:/opt/bitnami/java/bin:/opt/bitnami/kafka/bin:$PATH"
