@@ -3,7 +3,7 @@ License Version 2.0:
 
 audience-annotations-0.12.0
 caffeine-2.9.3
-commons-beanutils-1.9.4
+commons-beanutils-1.11.0
 commons-cli-1.4
 commons-collections-3.2.2
 commons-digester-2.1
