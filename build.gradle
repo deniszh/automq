@@ -961,6 +961,8 @@ project(':core') {
     implementation libs.jacksonJDK8Datatypes
     implementation libs.joptSimple
     implementation libs.jose4j
+    implementation libs.nimbusJoseJwt
+    implementation libs.ant
     implementation libs.metrics
     implementation libs.scalaCollectionCompat
     implementation libs.scalaJava8Compat

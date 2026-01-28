@@ -114,7 +114,9 @@ versions += [
   jaxrs: "2.1.1",
   jfreechart: "1.0.0",
   jopt: "5.0.4",
-  jose4j: "0.9.4",
+  jose4j: "0.9.6",
+  nimbusJoseJwt: "9.37.4",
+  ant: "1.10.9",
   junit: "5.10.2",
   jqwik: "1.8.3",
   kafka_0100: "0.10.0.1",
@@ -168,7 +170,7 @@ versions += [
   zookeeper: "3.8.4",
 
   // AutoMQ inject start
-  commonLang: "3.12.0",
+  commonLang: "3.18.0",
   commonio: "2.15.1",
   commonMath3: "3.6.1",
   opentelemetrySDK: "1.40.0",
@@ -238,6 +240,8 @@ libs += [
   jmhGeneratorAnnProcess: "org.openjdk.jmh:jmh-generator-annprocess:$versions.jmh",
   joptSimple: "net.sf.jopt-simple:jopt-simple:$versions.jopt",
   jose4j: "org.bitbucket.b_c:jose4j:$versions.jose4j",
+  nimbusJoseJwt: "com.nimbusds:nimbus-jose-jwt:$versions.nimbusJoseJwt",
+  ant: "org.apache.ant:ant:$versions.ant",
   junitJupiter: "org.junit.jupiter:junit-jupiter:$versions.junit",
   junitJupiterApi: "org.junit.jupiter:junit-jupiter-api:$versions.junit",
   junitPlatformSuiteEngine: "org.junit.platform:junit-platform-suite-engine:$versions.junitPlatform",
