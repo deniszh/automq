@@ -5,7 +5,12 @@ FROM docker.io/bitnami/minideb:bookworm as extractor
 
 COPY automq-*.tgz /tmp/
 RUN mkdir -p /output && \
-    tar -zxf /tmp/automq-*.tgz -C /output --strip-components=1
+    tar -zxf /tmp/automq-*.tgz -C /output --strip-components=1 && \
+    ls -al /output/libs && \
+    rm /output/libs/netty-codec-http-4.1.115.Final.jar && \
+    rm /output/libs/netty-codec-http2-4.1.115.Final.jar && \
+    rm /output/libs/orc-core-1.5.8-nohive.jar && \
+    rm /tmp/automq-*.tgz
 
 FROM docker.io/bitnami/minideb:bookworm
 
@@ -47,7 +52,6 @@ RUN mkdir -p /tmp/bitnami/pkg/cache/ ; cd /tmp/bitnami/pkg/cache/ || exit 1 ; \
     done
 COPY --from=extractor --chown=1001:0 /output /opt/bitnami/kafka
 RUN chmod g+rwX /opt/bitnami
-RUN ls -al /opt/bitnami/kafka/libs
 RUN find / -perm /6000 -type f -exec chmod a-s {} \; || true
 RUN ln -s /opt/bitnami/scripts/kafka/entrypoint.sh /entrypoint.sh
 RUN ln -s /opt/bitnami/scripts/kafka/run.sh /run.sh
