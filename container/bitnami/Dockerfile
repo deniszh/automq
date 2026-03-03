@@ -35,7 +35,7 @@ ENV HOME="/" \
 COPY prebuildfs /
 SHELL ["/bin/bash", "-o", "errexit", "-o", "nounset", "-o", "pipefail", "-c"]
 # Install required system packages and dependencies
-RUN apt-get update && apt-get upgrade && apt-get install -y ca-certificates curl procps zlib1g libjemalloc-dev libgnutls30 && \
+RUN apt-get update && apt-get -y upgrade && apt-get install -y ca-certificates curl procps zlib1g libjemalloc-dev libgnutls30 && \
     apt-get clean && rm -rf /var/lib/apt/lists /var/cache/apt/archives
 RUN mkdir -p /tmp/bitnami/pkg/cache/ ; cd /tmp/bitnami/pkg/cache/ || exit 1 ; \
     COMPONENTS=( \
