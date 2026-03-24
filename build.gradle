@@ -175,6 +175,11 @@ allprojects {
           libs.reload4j
         )
       }
+      // lz4-java 1.8.1+ relocated to at.yawk.lz4:lz4-java; both artifacts declare the same
+      // capability, so we must pick one to resolve the conflict.
+      resolutionStrategy.capabilitiesResolution.withCapability('org.lz4:lz4-java') {
+        select('at.yawk.lz4:lz4-java:0')
+      }
     }
   }
   task printAllDependencies(type: DependencyReportTask) {}
