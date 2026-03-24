@@ -172,7 +172,9 @@ allprojects {
           libs.nettyHandler,
           libs.nettyTransportNativeEpoll,
           // be explicit about the reload4j version instead of relying on the transitive versions
-          libs.reload4j
+          libs.reload4j,
+          // force aircompressor version to fix CVEs in transitive dependency from orc-core
+          libs.aircompressor
         )
       }
       // lz4-java 1.8.1+ relocated to at.yawk.lz4:lz4-java; both artifacts declare the same
