@@ -14,13 +14,13 @@ ARG JAVA_EXTRA_SECURITY_DIR="/bitnami/java/extra-security"
 ARG TARGETARCH
 
 LABEL org.opencontainers.image.base.name="docker.io/bitnami/minideb:bookworm" \
-      org.opencontainers.image.created="2025-04-27T21:51:40Z" \
-      org.opencontainers.image.description="AutoMQ packaged by AutoMQ, Inc." \
-      org.opencontainers.image.ref.name="3.9.0-debian-12-r13" \
-      org.opencontainers.image.source="https://github.com/AutoMQ/automq/tree/main/container" \
-      org.opencontainers.image.title="automq" \
-      org.opencontainers.image.vendor="AutoMQ, Inc." \
-      org.opencontainers.image.version="3.9.0"
+    org.opencontainers.image.created="2025-04-27T21:51:40Z" \
+    org.opencontainers.image.description="AutoMQ packaged by AutoMQ, Inc." \
+    org.opencontainers.image.ref.name="3.9.0-debian-12-r13" \
+    org.opencontainers.image.source="https://github.com/AutoMQ/automq/tree/main/container" \
+    org.opencontainers.image.title="automq" \
+    org.opencontainers.image.vendor="AutoMQ, Inc." \
+    org.opencontainers.image.version="3.9.0"
 
 ENV HOME="/" \
     OS_ARCH="${TARGETARCH:-amd64}" \
@@ -30,20 +30,20 @@ ENV HOME="/" \
 COPY prebuildfs /
 SHELL ["/bin/bash", "-o", "errexit", "-o", "nounset", "-o", "pipefail", "-c"]
 # Install required system packages and dependencies
-RUN apt-get update && apt-get install -y ca-certificates curl procps zlib1g libjemalloc-dev && \
+RUN apt-get update && apt-get upgrade && apt-get install -y ca-certificates curl procps zlib1g libjemalloc-dev && \
     apt-get clean && rm -rf /var/lib/apt/lists /var/cache/apt/archives
 RUN mkdir -p /tmp/bitnami/pkg/cache/ ; cd /tmp/bitnami/pkg/cache/ || exit 1 ; \
     COMPONENTS=( \
-      "jre-17.0.14-10-1-linux-${OS_ARCH}-debian-12" \
+    "jre-17.0.14-10-1-linux-${OS_ARCH}-debian-12" \
     ) ; \
     for COMPONENT in "${COMPONENTS[@]}"; do \
-      if [ ! -f "${COMPONENT}.tar.gz" ]; then \
-        curl -SsLf "https://${DOWNLOADS_URL}/${COMPONENT}.tar.gz" -O ; \
-        curl -SsLf "https://${DOWNLOADS_URL}/${COMPONENT}.tar.gz.sha256" -O ; \
-      fi ; \
-      sha256sum -c "${COMPONENT}.tar.gz.sha256" ; \
-      tar -zxf "${COMPONENT}.tar.gz" -C /opt/bitnami --strip-components=2 --no-same-owner ; \
-      rm -rf "${COMPONENT}".tar.gz{,.sha256} ; \
+    if [ ! -f "${COMPONENT}.tar.gz" ]; then \
+    curl -SsLf "https://${DOWNLOADS_URL}/${COMPONENT}.tar.gz" -O ; \
+    curl -SsLf "https://${DOWNLOADS_URL}/${COMPONENT}.tar.gz.sha256" -O ; \
+    fi ; \
+    sha256sum -c "${COMPONENT}.tar.gz.sha256" ; \
+    tar -zxf "${COMPONENT}.tar.gz" -C /opt/bitnami --strip-components=2 --no-same-owner ; \
+    rm -rf "${COMPONENT}".tar.gz{,.sha256} ; \
     done
 COPY --from=extractor --chown=1001:0 /output /opt/bitnami/kafka
 RUN chmod g+rwX /opt/bitnami
