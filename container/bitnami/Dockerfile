@@ -5,7 +5,12 @@ FROM docker.io/bitnami/minideb:bookworm as extractor
 
 COPY automq-*.tgz /tmp/
 RUN mkdir -p /output && \
-    tar -zxf /tmp/automq-*.tgz -C /output --strip-components=1
+    tar -zxf /tmp/automq-*.tgz -C /output --strip-components=1 && \
+    ls -al /output/libs && \
+    rm -f /output/libs/netty-codec-http-4.1.115.Final.jar && \
+    rm -f /output/libs/netty-codec-http2-4.1.115.Final.jar && \
+    rm -f /output/libs/orc-core-1.5.8-nohive.jar && \
+    rm /tmp/automq-*.tgz
 
 FROM docker.io/bitnami/minideb:bookworm
 
