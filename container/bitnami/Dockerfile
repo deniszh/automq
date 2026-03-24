@@ -7,9 +7,9 @@ COPY automq-*.tgz /tmp/
 RUN mkdir -p /output && \
     tar -zxf /tmp/automq-*.tgz -C /output --strip-components=1 && \
     ls -al /output/libs && \
-    rm /output/libs/netty-codec-http-4.1.115.Final.jar && \
-    rm /output/libs/netty-codec-http2-4.1.115.Final.jar && \
-    rm /output/libs/orc-core-1.5.8-nohive.jar && \
+    rm -f /output/libs/netty-codec-http-4.1.115.Final.jar && \
+    rm -f /output/libs/netty-codec-http2-4.1.115.Final.jar && \
+    rm -f /output/libs/orc-core-1.5.8-nohive.jar && \
     rm /tmp/automq-*.tgz
 
 FROM docker.io/bitnami/minideb:bookworm
@@ -34,9 +34,12 @@ ENV HOME="/" \
 
 COPY prebuildfs /
 SHELL ["/bin/bash", "-o", "errexit", "-o", "nounset", "-o", "pipefail", "-c"]
+
 # Install required system packages and dependencies
-RUN apt-get update && apt-get -y upgrade && apt-get install -y ca-certificates curl procps zlib1g libjemalloc-dev libgnutls30 && \
+RUN apt-get update && apt-get -y upgrade && \
+    apt-get install -y ca-certificates curl procps zlib1g libjemalloc-dev && \
     apt-get clean && rm -rf /var/lib/apt/lists /var/cache/apt/archives
+
 RUN mkdir -p /tmp/bitnami/pkg/cache/ ; cd /tmp/bitnami/pkg/cache/ || exit 1 ; \
     COMPONENTS=( \
     "jre-17.0.14-10-1-linux-${OS_ARCH}-debian-12" \
