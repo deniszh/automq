@@ -166,7 +166,7 @@ versions += [
   zookeeper: "3.8.4",
 
   // AutoMQ inject start
-  commonLang: "3.12.0",
+  commonLang: "3.18.0",
   commonio: "2.15.1",
   commonMath3: "3.6.1",
   opentelemetrySDK: "1.40.0",
