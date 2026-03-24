@@ -21,11 +21,11 @@ ARG TARGETARCH
 LABEL org.opencontainers.image.base.name="docker.io/bitnami/minideb:bookworm" \
     org.opencontainers.image.created="2025-04-27T21:51:40Z" \
     org.opencontainers.image.description="AutoMQ packaged by AutoMQ, Inc." \
-    org.opencontainers.image.ref.name="3.9.0-debian-12-r13" \
+    org.opencontainers.image.ref.name="3.9.1-debian-12-r13" \
     org.opencontainers.image.source="https://github.com/AutoMQ/automq/tree/main/container" \
     org.opencontainers.image.title="automq" \
     org.opencontainers.image.vendor="AutoMQ, Inc." \
-    org.opencontainers.image.version="3.9.0"
+    org.opencontainers.image.version="3.9.1"
 
 ENV HOME="/" \
     OS_ARCH="${TARGETARCH:-amd64}" \
@@ -35,7 +35,8 @@ ENV HOME="/" \
 COPY prebuildfs /
 SHELL ["/bin/bash", "-o", "errexit", "-o", "nounset", "-o", "pipefail", "-c"]
 # Install required system packages and dependencies
-RUN apt-get update && apt-get upgrade && apt-get install -y ca-certificates curl procps zlib1g libjemalloc-dev && \
+RUN apt-get update && apt-get -y upgrade && \
+    apt-get install -y ca-certificates curl procps zlib1g libjemalloc-dev && \
     apt-get clean && rm -rf /var/lib/apt/lists /var/cache/apt/archives
 RUN mkdir -p /tmp/bitnami/pkg/cache/ ; cd /tmp/bitnami/pkg/cache/ || exit 1 ; \
     COMPONENTS=( \
@@ -61,7 +62,7 @@ RUN find /opt/bitnami/scripts -type f -exec chmod g+rwX {} \; && \
     find /opt/bitnami/scripts -type f -exec chmod +x {} \;
 RUN /opt/bitnami/scripts/java/postunpack.sh
 RUN /opt/bitnami/scripts/kafka/postunpack.sh
-ENV APP_VERSION="3.9.0" \
+ENV APP_VERSION="3.9.1" \
     BITNAMI_APP_NAME="kafka" \
     JAVA_HOME="/opt/bitnami/java" \
     PATH="/opt/bitnami/common/bin:/opt/bitnami/java/bin:/opt/bitnami/kafka/bin:$PATH"
